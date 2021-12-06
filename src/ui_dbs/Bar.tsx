@@ -4,6 +4,7 @@ import store from '../store/webSocket'
 export type Param = {
     uiType: '双柱' | '堆叠'
     uiId: number
+    style?: React.CSSProperties
 }
 const Ui: FC<Param> = (props) => {
     const db = store(s => s.fjs)
@@ -108,7 +109,6 @@ const Ui: FC<Param> = (props) => {
             uiObj.changeData(uiDataCreate[props.uiType]())
         }
     }, [db,doorFloors, doorType])
-
     return <div id={domId}></div>
 }
 

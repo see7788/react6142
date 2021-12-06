@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@antv/g2": "^4.1.34",
     "@antv/g2plot": "^2.3.40",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/user-event": "^12.8.3",

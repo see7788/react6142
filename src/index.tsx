@@ -1,31 +1,22 @@
+import 'antd/dist/antd.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import Column from './ui_dbs/Column';
 import Bar from './ui_dbs/Bar';
-import store, { DoorType } from './store/webSocket'
-import Slider from './ui_select_doorFloors/Slider'
-import { Radio,RadioChangeEvent } from 'antd';
+import Chart from './ui_dbs/Chart';
+import Radio from './ui_select_doorType/Radio';
+import Slider from './ui_select_doorFloors/Slider';
 const App = () => {
-  //  <Slider uiType='横向' />
-  //  <Slider uiType='竖向' />
-  const doorType = store(s => s.select.doorType)
-  const doorTypeSet = (e:RadioChangeEvent) => {
-    store.select.doorTypeSet(e.target.value)
-  }
-//https://antv-g2.gitee.io/zh/examples/pie/rose#donut-rose
+  //https://antv-g2.gitee.io/zh/examples/pie/rose#donut-rose
   return (
     <div>
-      <Column uiId={1} uiType='堆叠' />
+      <Radio />
+      <Chart uiId={1} uiType='堆叠' />
       <Slider />
-      <Radio.Group
-        onChange={doorTypeSet}
-        value={doorType}>
-        <Radio value={'boy'}>boy</Radio>
-        <Radio value={'girl'}>girl</Radio>
-      </Radio.Group>
     </div>
   )
 }
+//<React.StrictMode>
 ReactDOM.render(<App />, document.getElementById('root'));
 reportWebVitals();

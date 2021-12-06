@@ -4,6 +4,7 @@ import store from '../store/webSocket'
 export type Param = {
     uiType: '双柱' | '堆叠' | '堆叠背景'
     uiId: number
+    style?: React.CSSProperties
 }
 const Ui: FC<Param> = (props) => {
     const db = store(s => s.fjs)

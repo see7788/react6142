@@ -12,9 +12,9 @@ ws.onerror = (e) => {
 ws.onclose = () => {
     console.log('WebSocket onopen');
 };
-export type DoorType = 'boy' | 'girl'
+type DoorType = 'boy' | 'girl'
 type DoorFloor = [number, number];
-export interface IdDb {
+interface IdDb {
     'id': number,//id
     'doorFloor': number,//楼层
     'doorName': string,//房间名
@@ -23,11 +23,11 @@ export interface IdDb {
     'nowNum': number,//当前人数
     'kenNum': number
 }
-export type Fjs = Record<number, IdDb>
+type Fjs = Record<number, IdDb>
 type Sotre = {
     fjs: Fjs
     select: {
-        fjs():IdDb[]
+        fjs(): IdDb[]
         doorType: DoorType,
         doorTypeSet(doorType: DoorType): void,
         doorFloors: DoorFloor,
@@ -45,13 +45,11 @@ export default mobz<Sotre>((get, set) => {
         }
 
     }
-   // cookies.remove('doorType')
-  //  cookies.remove('doorFloors')
     return {
         fjs: {
             1: {
                 'id': 1,//id
-                'doorFloor': 8,//楼层
+                'doorFloor': 2,//楼层
                 'doorName': '8层西卫',//房间名
                 'doorType': 'boy',//girl|boy
                 'dateTime': 'string',//时间
@@ -60,7 +58,7 @@ export default mobz<Sotre>((get, set) => {
             },
             2: {
                 'id': 2,//id
-                'doorFloor': 8,//楼层
+                'doorFloor': 2,//楼层
                 'doorName': '8层西卫',//房间名
                 'doorType': 'girl',//girl|boy
                 'dateTime': 'string',//时间
@@ -107,9 +105,9 @@ export default mobz<Sotre>((get, set) => {
         select: {
             fjs: () => {
                 const db = get().fjs;
-                const doorType=get().select.doorType
-                const min=get().select.doorFloors[0]
-                const max=get().select.doorFloors[1]
+                const doorType = get().select.doorType
+                const min = get().select.doorFloors[0]
+                const max = get().select.doorFloors[1]
                 return Object.values(db).filter(c => {
                     return c.doorType === doorType && c.doorFloor >= min && c.doorFloor <= max
                 })
@@ -119,10 +117,14 @@ export default mobz<Sotre>((get, set) => {
                 get().select.doorType = doorType
                 cookies.set('doorType', doorType)
             },
-            doorFloors: (cookies.get('doorFloors') || [1, 20]) as DoorFloor,
+            doorFloors: [
+                Number(cookies.get('doorFloorsMin') || 1),
+                Number(cookies.get('doorFloorsMax') || 20)
+            ],
             doorFloorsSet: (doorFloors) => {
                 get().select.doorFloors = doorFloors
-                cookies.set('doorFloors', doorFloors)
+                cookies.set('doorFloorsMin', `${doorFloors[0]}`)
+                cookies.set('doorFloorsMax', `${doorFloors[1]}`)
             }
         }
     }

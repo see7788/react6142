@@ -27,6 +27,9 @@ const Ui: FC<Param> = (props) => {
             return <RadialBar data={data} {...{
                 ...uiPunlicFile,
                 isStack: true,
+                legend:{
+                    position:'top'
+                  },
                 maxAngle: 200,
             }} />;
        }

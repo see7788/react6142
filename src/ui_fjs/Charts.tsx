@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Rose } from '@ant-design/charts';
 import store from '../store/webSocket'
-
+//玫瑰图
 export type Param = {
-  uiType: '堆叠玫瑰图' | '带贴图的分组玫瑰图' | '分组玫瑰图'
+  uiType: '堆叠' | '带贴图的分组' | '分组'
   style?: React.CSSProperties
 }
 const uiPunlicFile = {
@@ -16,18 +16,21 @@ const Ui: FC<Param> = (props) => {
   const doorFloors = store(s => s.select.doorFloors)
   const doorType = store(s => s.select.doorType)
   const uiDataCreate = {
-    '堆叠玫瑰图': store.uiDb.b,
-    '带贴图的分组玫瑰图': store.uiDb.b,
-    '分组玫瑰图': store.uiDb.b
+    '堆叠': store.uiDb.b,
+    '带贴图的分组': store.uiDb.b,
+    '分组': store.uiDb.b
   }[props.uiType]
   const [data, dataSet] = useState(uiDataCreate())
   useEffect(() => {
     dataSet(uiDataCreate());
   }, [db, doorFloors, doorType])
   switch (props.uiType) {
-    case '堆叠玫瑰图':
+    case '堆叠':
       return <Rose data={data} {...{
         ...uiPunlicFile,
+      legend:{
+        position:'top'
+      },
         isStack: true,
         // 当 isStack 为 true 时，该值为必填
         radius: 0.9,
@@ -40,10 +43,13 @@ const Ui: FC<Param> = (props) => {
           },
         ],
       }} />;
-    case '带贴图的分组玫瑰图':
+    case '带贴图的分组':
       return <Rose data={data} {...{
         ...uiPunlicFile,
         isGroup: true,
+        legend:{
+          position:'top'
+        },
         radius: 0.9,
         label: {
           offset: -15,
@@ -57,9 +63,12 @@ const Ui: FC<Param> = (props) => {
           },
         ],
       }} />;
-    case '分组玫瑰图':
+    case '分组':
       return <Rose data={data} {...{
         ...uiPunlicFile,
+        legend:{
+          position:'top'
+        },
         radius: 0.9,
         label: {
           offset: -15,

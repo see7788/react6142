@@ -9,11 +9,10 @@ import RadialBar from './ui_dbs/RadialBar';
 import Radio from './ui_select_doorType/Radio';
 import Slider from './ui_select_doorFloors/Slider';
 const App = () => {
-  //https://antv-g2.gitee.io/zh/examples/pie/rose#donut-rose
   return (
     <div>
       <Radio />
-      <RadialBar uiType='堆叠玉珏图' />
+      <Column uiType='堆叠联通区域' />
       <Slider />
     </div>
   )

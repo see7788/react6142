@@ -15,6 +15,7 @@ const Ui: FC<SliderParam> = ({ uiType, style }) => {
     const min = store(s => _.min(Object.values(s.fjs).map(v => v.doorFloor)))
     const set = store.select.doorFloorsSet
     return (<Slider
+        tipFormatter={v=>`第${v}层`} 
         style={style || {}}
         tooltipVisible={true}//值为 true 时，Tooltip 将会始终显示；否则始终不显示，哪怕在拖拽及移入时
         range={{ draggableTrack: true }}//	双滑块模式

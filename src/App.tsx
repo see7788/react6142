@@ -25,7 +25,7 @@ const App = () => {
     const defUi: Uis = '11雷达图双色带底色'
     const [ui, uiSet] = useState<keyof typeof uis>(defUi)
     return (
-        <div style={{ display: 'flex', flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <Space>
                 <Radio />
                 <Select
@@ -45,10 +45,16 @@ const App = () => {
                     }
                 </Select>
             </Space>
-            <div style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <div style={{
+                flex: "1",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+            }}>
                 {uis[ui]()}
-                <Slider />
             </div>
+            <Slider />
         </div>
     )
 }

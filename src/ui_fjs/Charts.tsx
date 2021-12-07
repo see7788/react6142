@@ -3,7 +3,7 @@ import { Rose } from '@ant-design/charts';
 import store from '../store/webSocket'
 //玫瑰图
 export type Param = {
-  uiType: '堆叠' | '带贴图的分组' | '分组'
+  uiType: '玫瑰堆叠' | '玫瑰带贴图的分组' | '玫瑰分组'
   style?: React.CSSProperties
 }
 const uiPunlicFile = {
@@ -16,16 +16,16 @@ const Ui: FC<Param> = (props) => {
   const doorFloors = store(s => s.select.doorFloors)
   const doorType = store(s => s.select.doorType)
   const uiDataCreate = {
-    '堆叠': store.uiDb.b,
-    '带贴图的分组': store.uiDb.b,
-    '分组': store.uiDb.b
+    '玫瑰堆叠': store.uiDb.b,
+    '玫瑰带贴图的分组': store.uiDb.b,
+    '玫瑰分组': store.uiDb.b
   }[props.uiType]
   const [data, dataSet] = useState(uiDataCreate())
   useEffect(() => {
     dataSet(uiDataCreate());
   }, [db, doorFloors, doorType])
   switch (props.uiType) {
-    case '堆叠':
+    case '玫瑰堆叠':
       return <Rose data={data} {...{
         ...uiPunlicFile,
       legend:{
@@ -43,7 +43,7 @@ const Ui: FC<Param> = (props) => {
           },
         ],
       }} />;
-    case '带贴图的分组':
+    case '玫瑰带贴图的分组':
       return <Rose data={data} {...{
         ...uiPunlicFile,
         isGroup: true,
@@ -63,7 +63,7 @@ const Ui: FC<Param> = (props) => {
           },
         ],
       }} />;
-    case '分组':
+    case '玫瑰分组':
       return <Rose data={data} {...{
         ...uiPunlicFile,
         legend:{

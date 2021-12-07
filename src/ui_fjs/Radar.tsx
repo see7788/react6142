@@ -3,7 +3,7 @@ import { Radar } from '@ant-design/charts';
 import store from '../store/webSocket'
 //雷达图
 export type Param = {
-    uiType: '双色' | '双色带底色'
+    uiType: '雷达图双色' | '雷达图双色带底色'
     style?: React.CSSProperties
 }
 const uiPunlicFile = {
@@ -16,15 +16,15 @@ const Ui: FC<Param> = (props) => {
     const doorFloors = store(s => s.select.doorFloors)
     const doorType = store(s => s.select.doorType)
     const uiDataCreate = {
-        '双色': store.uiDb.b,
-        '双色带底色': store.uiDb.b,
+        '雷达图双色': store.uiDb.b,
+        '雷达图双色带底色': store.uiDb.b,
     }[props.uiType]
     const [data, dataSet] = useState(uiDataCreate())
     useEffect(() => {
         dataSet(uiDataCreate());
     }, [db, doorFloors, doorType])
     switch (props.uiType) {
-        case '双色':
+        case '雷达图双色':
             return <Radar data={data} {...{
                 ...uiPunlicFile,
                 legend:{
@@ -55,7 +55,7 @@ const Ui: FC<Param> = (props) => {
                     size: 2,
                 }
             }} />;
-        case '双色带底色':
+        case '雷达图双色带底色':
             return <Radar data={data} {...{
                 ...uiPunlicFile,
                 legend:{

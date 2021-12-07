@@ -4,7 +4,7 @@ import { each, groupBy } from '@antv/util';
 import store from '../store/webSocket'
 //柱状图
 export type Param = {
-    uiType: '堆叠' | '堆叠联通区域' | '堆叠标注展示总计' | '堆叠设置背景色' | '分组'
+    uiType: '柱状堆叠' | '柱状堆叠联通区域' | '柱状堆叠标注展示总计' | '柱状堆叠设置背景色' | '柱状分组'
     style?: React.CSSProperties
 }
 const uiPunlicFile = {
@@ -17,18 +17,18 @@ const Ui: FC<Param> = (props) => {
     const doorFloors = store(s => s.select.doorFloors)
     const doorType = store(s => s.select.doorType)
     const uiDataCreate = {
-        '堆叠': store.uiDb.b,
-        '堆叠联通区域': store.uiDb.b,
-        '堆叠标注展示总计': store.uiDb.b,
-        '堆叠设置背景色': store.uiDb.b,
-        '分组': store.uiDb.a
+        '柱状堆叠': store.uiDb.b,
+        '柱状堆叠联通区域': store.uiDb.b,
+        '柱状堆叠标注展示总计': store.uiDb.b,
+        '柱状堆叠设置背景色': store.uiDb.b,
+        '柱状分组': store.uiDb.a
     }[props.uiType]
     const [data, dataSet] = useState(uiDataCreate())
     useEffect(() => {
         dataSet(uiDataCreate());
     }, [db, doorFloors, doorType])
     switch (props.uiType) {
-        case '堆叠':
+        case '柱状堆叠':
             return <Column data={data} {...{
                 ...uiPunlicFile,
                 legend:{
@@ -54,7 +54,7 @@ const Ui: FC<Param> = (props) => {
                     ],
                 },
             }} />;
-        case '堆叠联通区域':
+        case '柱状堆叠联通区域':
             return <Column data={data} {...{
                 ...uiPunlicFile,
                 isStack: true,
@@ -81,7 +81,7 @@ const Ui: FC<Param> = (props) => {
                     },
                 },
             }} />;
-        case '堆叠标注展示总计':
+        case '柱状堆叠标注展示总计':
             const annotations: any[] = [];
             each(groupBy(data as any, 'xField'), (values: any, k: any) => {
                 const value = values.reduce((a: any, b: any) => a + b.value, 0);
@@ -124,7 +124,7 @@ const Ui: FC<Param> = (props) => {
                 // 使用 annotation （图形标注）来展示：总数的 label
                 annotations,
             }} />;
-        case '堆叠设置背景色':
+        case '柱状堆叠设置背景色':
             return <Column data={data} {...{
                 ...uiPunlicFile,
                 isStack: true,
@@ -147,7 +147,7 @@ const Ui: FC<Param> = (props) => {
                     }
                 }
             }} />;
-        case '分组':
+        case '柱状分组':
             return <Column data={data} {...{
                 ...uiPunlicFile,
                 isStack: true,

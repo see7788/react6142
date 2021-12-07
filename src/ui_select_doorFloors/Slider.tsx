@@ -17,7 +17,7 @@ const Ui: FC<SliderParam> = ({ uiType, style }) => {
     return (<Slider
         tipFormatter={v=>`第${v}层`} 
         style={style || {}}
-        tooltipVisible={true}//值为 true 时，Tooltip 将会始终显示；否则始终不显示，哪怕在拖拽及移入时
+        //tooltipVisible={true}//值为 true 时，Tooltip 将会始终显示；否则始终不显示，哪怕在拖拽及移入时
         range={{ draggableTrack: true }}//	双滑块模式
         defaultValue={db}
         onChange={set}
